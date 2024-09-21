@@ -1,0 +1,19 @@
+{
+  "kimera_id": "uuid",
+  "talk_theme_id": "uuid",
+  "name": "ぴゅぴゅ丸",
+  "description": "ぴゅぴゅ丸は、ぴゅぴゅすることが大好きなキメラです。",
+  "image_url": "https://example.com/image.jpg",
+  "like": "趣味・好きなもの",
+  "persona": {
+    "type": "cute",
+    "cool": 100,
+    "cute": 100,
+    "funny": 100,
+    "sexy": 100,
+    "smart": 100
+  },
+  "created_at": "2021-01-01T00:00:00Z",
+  "updated_at": "2021-01-01T00:00:00Z",
+  "deleted_at": null
+}
