@@ -7,10 +7,17 @@ import { KimeraProfileCard } from "./parts/KimeraProfileCard";
 import talkRoomTitleStyles from "./talkRoom.module.css";
 import { VoiceInputIcon } from "@/components/shared/ui-elements/icons/VoiceInputIcon";
 import { BarIcon } from "@/components/shared/ui-elements/icons/BarIcon";
+import { VoiceInputToggleButton } from "./parts/VoiceInputToggleButton";
+import { useSpeechRecognition } from "./hooks/useSpeechRecognition";
+import { VoiceInputView } from "./parts/VoiceInputView";
+import { BasicButton } from "@/components/shared/ui-elements/buttons/BasicButton";
 
 export const TalkRoomPage = () => {
   const params = useParams();
   console.log("params", params);
+
+  const { isRecording, recordingComplete, transcript, handleToggleRecording } =
+    useSpeechRecognition();
 
   // Client Side Routing でパラメータを取得する
   if (!params) {
@@ -49,7 +56,36 @@ export const TalkRoomPage = () => {
             bottom: "50px",
           }}
         >
-          <VoiceInputIcon />
+          {/* 音声入力内容 表示項目 */}
+          <VoiceInputView
+            isRecording={isRecording}
+            recordingComplete={recordingComplete}
+            transcript={transcript}
+          />
+
+          {/* 音声入力ボタン */}
+          <VoiceInputToggleButton
+            isRecording={isRecording}
+            handleToggleRecording={handleToggleRecording}
+          />
+
+          {/* AIに質問する */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "20px",
+            }}
+          >
+            <BasicButton
+              btnId={"askAI"}
+              text={`${Kimera.name}に質問する`}
+              callBack={() => {
+                console.log("AIに質問を実行する");
+                // TODO: AIに質問を実行する処理を実装する
+              }}
+            />
+          </div>
         </div>
       </div>
 

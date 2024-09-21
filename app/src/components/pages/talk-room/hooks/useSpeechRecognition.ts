@@ -1,83 +1,91 @@
-// "use client";
-// // import { voiceInputActions } from "@/store/voiceInput";
-// import { useState, useEffect, useRef } from "react";
+"use client";
+import { voiceInputActions } from "@/store/voiceInput";
+import { useState, useEffect, useRef } from "react";
 
-// export type SpeechRecognitionHookReturn = {
-//   isRecording: boolean;
-//   recordingComplete: boolean;
-//   transcript: string;
-//   handleToggleRecording: () => void;
-// };
+// Declare a global interface to add the webkitSpeechRecognition property to the Window object
+declare global {
+  interface Window {
+    webkitSpeechRecognition: any;
+  }
+}
 
-// const useSpeechRecognition = (): SpeechRecognitionHookReturn => {
-//   // State variables to manage recording status, completion, and transcript
-//   const [isRecording, setIsRecording] = useState(false);
-//   const [recordingComplete, setRecordingComplete] = useState(false);
-//   const [transcript, setTranscript] = useState("");
+export type SpeechRecognitionHookReturn = {
+  isRecording: boolean;
+  recordingComplete: boolean;
+  transcript: string;
+  handleToggleRecording: () => void;
+};
 
-//   // Reference to store the SpeechRecognition instance
-//   const recognitionRef = useRef<any>(null);
+// Voice Input Custom Hook
+export const useSpeechRecognition = (): SpeechRecognitionHookReturn => {
+  // 録音中かどうか
+  const [isRecording, setIsRecording] = useState(false);
+  // 録音が完了したかどうか
+  const [recordingComplete, setRecordingComplete] = useState(false);
+  // 録音結果
+  const [transcript, setTranscript] = useState("");
 
-//   // Function to start recording
-//   const startRecording = () => {
-//     setIsRecording(true);
-//     // Create a new SpeechRecognition instance and configure it
-//     const speech = new window.webkitSpeechRecognition();
-//     speech.lang = "ja-JP";
-//     recognitionRef.current = speech;
-//     recognitionRef.current.continuous = true;
-//     recognitionRef.current.interimResults = true;
+  // Reference to store the SpeechRecognition instance
+  const recognitionRef = useRef<any>(null);
 
-//     // Event handler for speech recognition results
-//     recognitionRef.current.onresult = (event: any) => {
-//       const { transcript } = event.results[event.results.length - 1][0];
+  // Function to start recording
+  const startRecording = () => {
+    setIsRecording(true);
+    // Create a new SpeechRecognition instance and configure it
+    const speech = new window.webkitSpeechRecognition();
+    speech.lang = "ja-JP";
+    recognitionRef.current = speech;
+    recognitionRef.current.continuous = true;
+    recognitionRef.current.interimResults = true;
 
-//       // Log the recognition results and update the transcript state
-//       console.log(event.results);
-//       setTranscript(transcript);
-//       // Store
-//       // voiceInputActions.setTranscript(transcript);
-//     };
+    // Event handler for speech recognition results
+    recognitionRef.current.onresult = (event: any) => {
+      const { transcript } = event.results[event.results.length - 1][0];
 
-//     // Start the speech recognition
-//     recognitionRef.current.start();
-//   };
+      // Log the recognition results and update the transcript state
+      console.log(event.results);
+      setTranscript(transcript);
+      // Store
+      voiceInputActions.setTranscript(transcript);
+    };
 
-//   // Cleanup effect when the component unmounts
-//   useEffect(() => {
-//     return () => {
-//       // Stop the speech recognition if it's active
-//       if (recognitionRef.current) {
-//         recognitionRef.current.stop();
-//       }
-//     };
-//   }, []);
+    // Start the speech recognition
+    recognitionRef.current.start();
+  };
 
-//   // Function to stop recording
-//   const stopRecording = () => {
-//     if (recognitionRef.current) {
-//       // Stop the speech recognition and mark recording as complete
-//       recognitionRef.current.stop();
-//       setRecordingComplete(true);
-//     }
-//   };
+  // Cleanup effect when the component unmounts
+  useEffect(() => {
+    return () => {
+      // Stop the speech recognition if it's active
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, []);
 
-//   // Toggle recording state and manage recording actions
-//   const handleToggleRecording = () => {
-//     setIsRecording(!isRecording);
-//     if (!isRecording) {
-//       startRecording();
-//     } else {
-//       stopRecording();
-//     }
-//   };
+  // Function to stop recording
+  const stopRecording = () => {
+    if (recognitionRef.current) {
+      // Stop the speech recognition and mark recording as complete
+      recognitionRef.current.stop();
+      setRecordingComplete(true);
+    }
+  };
 
-//   return {
-//     isRecording,
-//     recordingComplete,
-//     transcript,
-//     handleToggleRecording,
-//   };
-// };
+  // Toggle recording state and manage recording actions
+  const handleToggleRecording = () => {
+    setIsRecording(!isRecording);
+    if (!isRecording) {
+      startRecording();
+    } else {
+      stopRecording();
+    }
+  };
 
-// export default useSpeechRecognition;
+  return {
+    isRecording,
+    recordingComplete,
+    transcript,
+    handleToggleRecording,
+  };
+};
