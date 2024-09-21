@@ -19,7 +19,7 @@ export const Kimera: KimeraEntity = {
   hobbies: `トレーニングに余念がなく、特に必要がないにもかかわらず鍛え続けています。
     また、レアな剣を集め、
     「クールな男」イメージを保つために、武器を磨いたり、ドラマチックな登場を練習したりしています。`,
-  image_url: "/image.jpg",
+  image_url: "https://avatars.githubusercontent.com/u/78206917",
   like: "趣味・好きなもの",
   created_at: "2021-01-01T00:00:00Z",
   updated_at: "2021-01-01T00:00:00Z",
