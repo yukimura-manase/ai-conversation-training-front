@@ -52,9 +52,12 @@ export const KimeraProfileCard = ({
         <div
           style={{
             position: "absolute",
+            top: "5px",
+            left: "5px",
             display: "flex",
             gap: "8px",
-            alignItems: "flex-end",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <h3
@@ -81,7 +84,7 @@ export const KimeraProfileCard = ({
       {/* 説明文 */}
       <div
         style={{
-          marginTop: "40px",
+          marginTop: "70px",
         }}
       >
         {description}

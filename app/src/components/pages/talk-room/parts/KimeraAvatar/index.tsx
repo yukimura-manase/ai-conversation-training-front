@@ -8,7 +8,7 @@ interface KimeraAvatorProps {
 export const KimeraAvatar = ({ name, image_url }: KimeraAvatorProps) => {
   return (
     <div>
-      <img src={image_url} alt={name} width={300} height={300} />
+      <img src={image_url} alt={name} width={400} height={400} />
     </div>
   );
 };
