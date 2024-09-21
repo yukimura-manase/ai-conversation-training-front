@@ -3,11 +3,25 @@ import { voiceInputStates } from "./voiceInput";
 import { synthesizeSpeech } from "@/lib/voiceVoxClient";
 import { ChatChainLLM } from "@/lib/openAiLangChain";
 import { KimeraList } from "@/constants/KimeraData";
+import axios, { AxiosResponse } from "axios";
 
+// 会話ログの型定義
 interface talkLogType {
   chatRoomId: number;
   userTalk: string;
   aiTalk: string;
+}
+
+// AIによる会話の総合評価・フィードバック
+interface AiFeedBackType {
+  userId: string;
+  chatRoomId: string;
+  feedback: string;
+  smile_rating: number;
+  clear_conversation_rating: number;
+  smooth_rating: number;
+  manner_rating: number;
+  like_rating: number;
 }
 
 interface AnswerStateType {
@@ -16,6 +30,7 @@ interface AnswerStateType {
   talkLogs: talkLogType[];
   audioData: Blob | undefined;
   audioUrl: string;
+  aiTalkFeedBack: AiFeedBackType[];
 }
 
 export const talkStates = proxy<AnswerStateType>({
@@ -24,6 +39,7 @@ export const talkStates = proxy<AnswerStateType>({
   talkLogs: [],
   audioData: undefined,
   audioUrl: "",
+  aiTalkFeedBack: [],
 });
 
 export const talkActions = {
@@ -42,6 +58,18 @@ export const talkActions = {
 
       // AIの回答をセットする
       talkStates.aiAnswer = chatLLMAnswer;
+
+      // 会話ログを保存するAPIをCallする
+      await axios.post("http://localhost:3000/talk_logs", null, {
+        params: {
+          chatRoomId: Number(kimeraId), // キメラID を Number 化したものを ChatRoomID とする
+          userTalk,
+          aiTalk: chatLLMAnswer,
+        },
+        headers: {
+          accept: "application/json",
+        },
+      });
 
       // 会話ログを保存する
       talkStates.talkLogs.push({
@@ -74,12 +102,13 @@ export const talkActions = {
         ・性格：${targetKimera.personality}
         ・性癖：${targetKimera.quirks}
         ・趣味：${targetKimera.hobbies}
+        ・100文字以内で、回答を作成します。
       `;
       return customPrompt;
     }
     return `
       あなたは、プロの会話コーチとして、ユーザーからの質問に答えることや、話すことが得意です。
-      ユーザーの質問や会話に対して、適切な回答を提供することができます。
+      ユーザーの質問や会話に対して、100文字以内で、適切な回答を提供することができます。
     `;
   },
 
@@ -92,6 +121,19 @@ export const talkActions = {
       talkStates.audioUrl = url;
     } catch (error) {
       console.error("Error generating audio", error);
+    }
+  },
+
+  // AIによる会話の総合評価・フィードバックを取得する
+  getAiTalkFeedBack: async (chatRoomId: number) => {
+    try {
+      // TODO: 総合評価APIを叩く処理を実装する
+      const response = await axios.get("http://localhost:3000/ai_feedback");
+      console.log("response", response);
+
+      talkStates.aiTalkFeedBack = response.data;
+    } catch (error) {
+      console.error("Error getAiTalkFeedBack", error);
     }
   },
 };

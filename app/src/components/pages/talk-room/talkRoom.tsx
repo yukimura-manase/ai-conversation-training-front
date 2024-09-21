@@ -15,6 +15,7 @@ import { useProxy } from "valtio/utils";
 import { voiceInputStates } from "@/stores/voiceInput";
 import { talkStates, talkActions } from "@/stores/talkLog";
 import { KimeraAnswerCard } from "./parts/KimeraAnswerCard";
+import { useRouter } from "next/router";
 
 export const TalkRoomPage = () => {
   const params = useParams();
@@ -28,17 +29,16 @@ export const TalkRoomPage = () => {
     return <Loading />;
   }
 
-  const kimeraId = params.kimeraId;
-  // console.log("kimeraId", kimeraId);
-
   // キメラの情報を取得する
+  const kimeraId = params.kimeraId;
   const Kimera = KimeraList.find((kimera) => kimera.kimeraId === kimeraId);
 
   // 音声入力のState
   const voiceInputStatesProxy = useProxy(voiceInputStates);
-
   // 会話の結果(質問と回答)
   const talkStatesProxy = useProxy(talkStates);
+
+  const router = useRouter();
 
   return (
     <Fragment>
@@ -104,6 +104,7 @@ export const TalkRoomPage = () => {
                       ? "#59B9C6"
                       : "#d3dbe2"
                   }
+                  isLoading={talkStatesProxy.isAiAnswerLoading}
                   callBack={() => {
                     console.log(`${Kimera.name}に質問する`);
                     talkActions.generateAiAnswer(
@@ -119,9 +120,12 @@ export const TalkRoomPage = () => {
                   btnColor={
                     talkStatesProxy.talkLogs.length > 0 ? "#EA5408" : "#d3dbe2"
                   }
-                  callBack={() => {
+                  callBack={async () => {
                     console.log("AIに会話を採点してもらう！");
-                    // TODO: AIに会話を採点してもらう処理を実装する
+                    // 会話の採点結果を取得する
+                    await talkActions.getAiTalkFeedBack(Number(kimeraId));
+                    // 会話の採点結果を表示するページに遷移する
+                    router.push("/feedback");
                   }}
                 />
               </div>
