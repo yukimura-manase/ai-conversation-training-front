@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.start {
+  width: 5rem;
+  height: 5rem;
+  margin-top: 0.5rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #9ca3af;
+  border-radius: 9999px;
+}
+
+.start:hover {
+  background-color: #6b7280;
+}
+
+.start:focus {
+  outline: none;
+}
+
+.startIcon {
+  width: 3rem;
+  height: 3rem;
+  color: #ffffff;
+}
+
+.stop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
