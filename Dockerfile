@@ -8,4 +8,5 @@ ENV HOST 0.0.0.0
 WORKDIR /usr/src/app
 
 # Docker コンテナが起動されたときに実行されるコマンド
+# Windowsの方はコメントアウト
 ENTRYPOINT ["sh", "./setup.sh" ]

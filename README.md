@@ -22,6 +22,9 @@ cd app/ && yarn install
 
 ```bash
 docker-compose up --build
+
+# windowsの方はこちらのコマンドでコンテナに入りyarn devを実行して開発環境を立ち上げる。
+docker container exec -it ai-conversation-training-front-frontend-1 /bin/bash 
 ```
 
 2. Docker コンテナの停止 & 削除
@@ -45,3 +48,5 @@ app ディレクトリに移動して、パッケージを add する
 ```bash
 cd app/ && yarn add パッケージ名
 ```
+
+
