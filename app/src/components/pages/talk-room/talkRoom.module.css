@@ -16,3 +16,10 @@
   color: "#171B1D";
   word-wrap: break-word;
 }
+
+.kimeraCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* x軸, y軸 */
+}

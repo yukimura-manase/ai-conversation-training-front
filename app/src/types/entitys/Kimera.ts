@@ -5,6 +5,8 @@ export interface KimeraEntity {
   talk_theme_group_id: string;
   persona_id: string;
   name: string;
+  image_url: string;
+  spec_url: string;
   description: string;
   /** 性格 */
   personality: string;
@@ -12,9 +14,4 @@ export interface KimeraEntity {
   quirks: string;
   /** 趣味 */
   hobbies: string;
-  image_url: string;
-  like: string;
-  created_at: string;
-  updated_at: string;
-  deleted_at: string | null;
 }
