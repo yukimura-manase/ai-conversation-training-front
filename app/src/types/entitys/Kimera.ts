@@ -1,6 +1,6 @@
 // キメラ
 export interface KimeraEntity {
-  kimera_id: string;
+  kimeraId: string;
   talk_theme_id: string;
   talk_theme_group_id: string;
   persona_id: string;

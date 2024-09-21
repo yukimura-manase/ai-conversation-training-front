@@ -1,5 +1,5 @@
 "use client";
-import { voiceInputActions } from "@/store/voiceInput";
+import { voiceInputActions } from "@/stores/voiceInput";
 import { useState, useEffect, useRef } from "react";
 
 // Declare a global interface to add the webkitSpeechRecognition property to the Window object
@@ -16,7 +16,9 @@ export type SpeechRecognitionHookReturn = {
   handleToggleRecording: () => void;
 };
 
-// Voice Input Custom Hook
+/**
+ * User の音声入力情報を管理するカスタムフック
+ */
 export const useSpeechRecognition = (): SpeechRecognitionHookReturn => {
   // 録音中かどうか
   const [isRecording, setIsRecording] = useState(false);

@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import { Loading } from "../loading/Loading";
 
 /** Propsの型定義 */
 interface PropsType {
@@ -21,6 +22,7 @@ interface PropsType {
   opacity?: string;
   addStyles?: CSSProperties;
   addTestStyles?: CSSProperties;
+  isLoading?: boolean;
 }
 
 export const BasicButton = (props: PropsType) => {
@@ -39,6 +41,7 @@ export const BasicButton = (props: PropsType) => {
     textColor,
     addStyles,
     addTestStyles,
+    isLoading,
   } = props;
 
   /** Default の Btn Style */
@@ -85,7 +88,11 @@ export const BasicButton = (props: PropsType) => {
       {/* 左側_Iconの場合 */}
       {!isIconPositionRight && svgIcon && svgIcon}
       <button id={btnId} style={btnStyle ? btnStyle : defaultBtnStyle}>
-        <span style={textStyle ? textStyle : defaultTextStyle}>{text}</span>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <span style={textStyle ? textStyle : defaultTextStyle}>{text}</span>
+        )}
       </button>
       {/* 右側_Iconの場合 */}
       {isIconPositionRight && svgIcon && svgIcon}
