@@ -4,6 +4,7 @@ import { RibbonIcon } from "@/components/shared/ui-elements/icons/RibbonIcon";
 import { CSSProperties } from "react";
 import { useProxy } from "valtio/utils";
 import { talkStates } from "@/stores/talkLog";
+import { Loading } from "@/components/shared/ui-elements/loading/Loading";
 
 interface KimeraAnswerCardProps {
   kimeraName: string;
@@ -102,18 +103,24 @@ export const KimeraAnswerCard = ({
           justifyContent: "center",
         }}
       >
-        <audio
-          // ref={audioRef}
-          controls
-          src={talkStatesProxy.audioUrl ? talkStatesProxy.audioUrl : undefined}
-          style={
-            {
-              // display: "none",
+        {talkStatesProxy.audioData ? (
+          <audio
+            // ref={audioRef}
+            controls
+            src={
+              talkStatesProxy.audioUrl ? talkStatesProxy.audioUrl : undefined
             }
-          }
-        >
-          {/* <source src={audioUrl ?? undefined} type="audio/mpeg" /> */}
-        </audio>
+            style={
+              {
+                // display: "none",
+              }
+            }
+          >
+            {/* <source src={audioUrl ?? undefined} type="audio/mpeg" /> */}
+          </audio>
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   );
