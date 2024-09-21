@@ -309,7 +309,7 @@ export const HomePage = () => {
             router.push("/talk-room/2");
           }}
         >
-          <img src="/image/kimera-card/foxy.jpg" alt="フォキシー" />
+          <img src="/image/kimera-card/roxy.jpg" alt="フォキシー" />
         </div>
         <div
           onClick={() => {

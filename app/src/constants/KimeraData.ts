@@ -1,7 +1,7 @@
 import { KimeraEntity } from "@/types/entitys/Kimera";
 
 export const CoolKimera: KimeraEntity = {
-  kimera_id: "1",
+  kimeraId: "1",
   talk_theme_id: "1",
   talk_theme_group_id: "1",
   persona_id: "1",
@@ -27,14 +27,14 @@ export const CoolKimera: KimeraEntity = {
 };
 
 export const SexyKimera: KimeraEntity = {
-  kimera_id: "2",
+  kimeraId: "2",
   talk_theme_id: "1",
   talk_theme_group_id: "1",
   persona_id: "1",
-  name: "フォキシー",
+  name: "ロクシー",
   description: "ぴゅぴゅ丸は、ぴゅぴゅすることが大好きなキメラです。",
-  image_url: "/image/kimera/foxy.jpg",
-  spec_url: "/image/kimera-spec/foxy.jpg",
+  image_url: "/image/kimera/roxy.jpg",
+  spec_url: "/image/kimera-spec/roxy.jpg",
   /** 性格 */
   personality: `
     セクシーで魅力的なキメラで、自分の外見に自信があります。その魅力を使って他人を誘惑し、からかうのが得意です。
@@ -52,7 +52,7 @@ export const SexyKimera: KimeraEntity = {
 };
 
 export const FunnyKimera: KimeraEntity = {
-  kimera_id: "3",
+  kimeraId: "3",
   talk_theme_id: "1",
   talk_theme_group_id: "1",
   persona_id: "1",
