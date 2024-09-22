@@ -60,16 +60,19 @@ export const talkActions = {
       talkStates.aiAnswer = chatLLMAnswer;
 
       // 会話ログを保存するAPIをCallする
-      await axios.post("http://localhost:3000/talk_logs", null, {
-        params: {
+      await axios.post(
+        "http://localhost:3000/talk_logs",
+        {
           chatRoomId: Number(kimeraId), // キメラID を Number 化したものを ChatRoomID とする
           userTalk,
           aiTalk: chatLLMAnswer,
         },
-        headers: {
-          accept: "application/json",
-        },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       // 会話ログを保存する
       talkStates.talkLogs.push({
