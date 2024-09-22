@@ -49,7 +49,7 @@ const style = {
     letterSpacing: "-0.019em",
     color: "#1E1E1E",
     marginTop: "10px",
-    maxWidth: "300px",
+    maxWidth: "420px",
     textAlign: "left" as const,
   },
   about_text: {
@@ -190,6 +190,14 @@ export const HomePage = () => {
             </svg>
           </div>
           <div>
+            <div className="flex justify-center mt-5">
+            <Image
+              src="/image/Group 151.jpg"
+              width={145.08}
+              height={134}
+              alt="aaa"
+            ></Image>
+            </div>
             <div style={style.middle_content_text}>キメ友を選ぶ</div>
             <div style={style.middle_content_sub_text}>
               ３人の「キメ友」から話したいキャラクターを選んでクリック！
@@ -240,6 +248,14 @@ export const HomePage = () => {
               />
             </svg>
           </div>
+          <div className="flex justify-center mt-5">
+          <Image
+              src="/image/Group 153.png"
+              width={145.08}
+              height={134}
+              alt="aaa"
+            ></Image>
+            </div>
           <div style={style.middle_content_text}>話しかける</div>
           <div style={style.middle_content_sub_text}>
             マイクアイコンを押して、声で話しかけよう。AIが回答をくれるよ！
@@ -288,6 +304,14 @@ export const HomePage = () => {
               />
             </svg>
           </div>
+          <div className="flex justify-center mt-5">
+          <Image
+              src="/image/Group 154.png"
+              width={145.08}
+              height={134}
+              alt="aaa"
+            ></Image>
+            </div>
           <div style={style.middle_content_text}>フィードバックを受ける</div>
           <div style={style.middle_content_sub_text}>
             会話後、フィードバックを見て自分の会話力をチェック！５つの観点から評価されるから、どこを伸ばせばいいかが分かるよ！
