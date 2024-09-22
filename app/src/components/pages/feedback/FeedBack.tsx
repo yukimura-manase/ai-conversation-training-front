@@ -5,7 +5,6 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
-  Text,
 } from "recharts";
 import {
   Card,
@@ -16,15 +15,14 @@ import {
 } from "@/components/shared/ui/card";
 
 const data = [
-  { subject: "笑顔度", A: 10, fullMark: 100, B: "sss" },
-  { subject: "コミュニケーションの明確さ", A: 98, fullMark: 100, B: "sss" },
-  { subject: "流れのスムーズさ", A: 86, fullMark: 100, B: "sss" },
-  { subject: "会話のトーンとマナー", A: 99, fullMark: 100, B: "sss" },
+  { subject: "コミュニケーションの明確さ", A: 48, fullMark: 100 },
+  { subject: "流れのスムーズさ", A: 66, fullMark: 100 },
+  { subject: "会話のトーンとマナー", A: 39, fullMark: 100 },
+  { subject: "笑顔度", A: 50, fullMark: 70 },
   {
     subject: "AIによる好感度",
     A: 85,
     fullMark: 100,
-    B: "sss",
   },
 ];
 const style = {
@@ -123,9 +121,6 @@ export const FeedBackPage = () => {
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
                 <PolarGrid />
-                <Text x={100} y={100}>
-                  aaaa
-                </Text>
                 <PolarAngleAxis
                   dataKey="subject"
                   style={style.graph_text}
@@ -154,7 +149,7 @@ export const FeedBackPage = () => {
       </div>
       <div className="flex">
         <div style={style.bottom_text}>相互理解・仲良くなれたScore</div>
-        <div style={style.percent}>1</div>
+        <div style={style.percent}>100</div>
         <div style={style.percent}>%</div>
       </div>
     </div>

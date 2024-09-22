@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 const style = {
   top_text: {
     fontFamily: "Inter",
@@ -18,7 +19,7 @@ const style = {
     lineHeight: "150%",
     letterSpacing: "-0.022em",
     color: "#171B1D",
-    marginTop:'5%'
+    marginTop: "5%",
   },
   sub_text: {
     fontFamily: "Noto Sans",
@@ -49,7 +50,7 @@ const style = {
     color: "#1E1E1E",
     marginTop: "10px",
     maxWidth: "300px",
-    textAlign:"left" as const
+    textAlign: "left" as const,
   },
   about_text: {
     fontFamily: "Inter",
@@ -89,19 +90,24 @@ const style = {
     bottom: "-8px",
     right: "-1px",
   },
+  buttonHover: {
+    transform: "scale(1.1)",
+  },
 };
 export const HomePage = () => {
   const router = useRouter();
-
+  const [isHover1, setIsHover1] = useState(false);
+  const [isHover2, setIsHover2] = useState(false);
+  const [isHover3, setIsHover3] = useState(false);
   return (
     <div>
-      <div className="flex justify-center">
-        <div style={style.top_text}>
-          AIキメラと話して、
-          <br /> 会話力を育てよう！ <br />
-          <br />
-          友達感覚で楽しくコミュニケーション上達！
-        </div>
+      <div className="flex justify-center mt-5">
+        <Image
+          src="/image/Group 150.jpg"
+          width={1280}
+          height={706}
+          alt="aaa"
+        ></Image>
       </div>
       <div className="text-center">
         <div style={style.title_text}>ABOUT</div>
@@ -304,11 +310,14 @@ export const HomePage = () => {
           </svg>
         </div>
       </div>
-      <div className="flex justify-center gap-5 mb-14">
-        <div
+      <div className="flex justify-center gap-12 mb-14 mt-8">
+        <button
           onClick={() => {
             router.push("/talk-room/1");
           }}
+          style={{ ...(isHover1 ? style.buttonHover : {}) }}
+          onMouseEnter={() => setIsHover1(true)}
+          onMouseLeave={() => setIsHover1(false)}
         >
           <Image
             src="/image/kimera-card/pengirou.jpg"
@@ -316,11 +325,14 @@ export const HomePage = () => {
             width={382}
             height={429}
           />
-        </div>
-        <div
+        </button>
+        <button
           onClick={() => {
             router.push("/talk-room/2");
           }}
+          style={{ ...(isHover2 ? style.buttonHover : {}) }}
+          onMouseEnter={() => setIsHover2(true)}
+          onMouseLeave={() => setIsHover2(false)}
         >
           <Image
             src="/image/kimera-card/roxy.jpg"
@@ -328,11 +340,14 @@ export const HomePage = () => {
             width={382}
             height={429}
           />
-        </div>
-        <div
+        </button>
+        <button
           onClick={() => {
             router.push("/talk-room/3");
           }}
+          style={{ ...(isHover3 ? style.buttonHover : {}) }}
+          onMouseEnter={() => setIsHover3(true)}
+          onMouseLeave={() => setIsHover3(false)}
         >
           <Image
             src="/image/kimera-card/rakuti.jpg"
@@ -340,7 +355,7 @@ export const HomePage = () => {
             width={382}
             height={429}
           />
-        </div>
+        </button>
       </div>
     </div>
   );
