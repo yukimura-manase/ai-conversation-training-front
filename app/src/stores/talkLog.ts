@@ -14,14 +14,12 @@ interface talkLogType {
 
 // AIによる会話の総合評価・フィードバック
 interface AiFeedBackType {
-  userId: string;
-  chatRoomId: string;
   feedback: string;
-  smile_rating: number;
-  clear_conversation_rating: number;
-  smooth_rating: number;
-  manner_rating: number;
-  like_rating: number;
+  smileRating: number;
+  clearConversationRating: number;
+  smoothRating: number;
+  mannerRating: number;
+  likeRating: number;
 }
 
 interface AnswerStateType {
@@ -30,7 +28,7 @@ interface AnswerStateType {
   talkLogs: talkLogType[];
   audioData: Blob | undefined;
   audioUrl: string;
-  aiTalkFeedBack: AiFeedBackType[];
+  aiTalkFeedBack: AiFeedBackType;
 }
 
 export const talkStates = proxy<AnswerStateType>({
@@ -39,7 +37,7 @@ export const talkStates = proxy<AnswerStateType>({
   talkLogs: [],
   audioData: undefined,
   audioUrl: "",
-  aiTalkFeedBack: [],
+  aiTalkFeedBack: {} as AiFeedBackType,
 });
 
 export const talkActions = {
@@ -127,14 +125,37 @@ export const talkActions = {
     }
   },
 
+  // AIが作成するフィードバックの解析
+  parseDataString: (dataString: string) => {
+    // 改行を削除
+    dataString = dataString.replace(/\n/g, "");
+    // 先頭と末尾の空白を削除
+    dataString = dataString.trim();
+    // キーに引用符を追加
+    dataString = dataString.replace(/([a-zA-Z0-9_]+)\s*:/g, '"$1":');
+    // 有効なJSONとしてパース
+    let obj = JSON.parse(dataString);
+    return obj;
+  },
+
   // AIによる会話の総合評価・フィードバックを取得する
   getAiTalkFeedBack: async (chatRoomId: number) => {
     try {
       // TODO: 総合評価APIを叩く処理を実装する
-      const response = await axios.get("http://localhost:3000/ai_feedback");
-      console.log("response", response);
+      const response = await axios.get(
+        `http://localhost:3000/ai_feedback/${chatRoomId}`
+      );
 
-      talkStates.aiTalkFeedBack = response.data;
+      console.group("AIによる会話の総合評価・フィードバックを取得する");
+      console.log("response", response);
+      console.log("response.data", response.data);
+      console.log("response.data.feedback", response.data.feedback);
+      console.groupEnd();
+
+      const parseResult = talkActions.parseDataString(response.data.feedback);
+      console.log("parseResult", parseResult);
+
+      talkStates.aiTalkFeedBack = parseResult;
     } catch (error) {
       console.error("Error getAiTalkFeedBack", error);
     }
