@@ -1,16 +1,5 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
-
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  hobby: string;
-  location: string;
-  age: number;
-  type: string;
-}
-
 const style = {
   top_text: {
     fontFamily: "Inter",
@@ -29,6 +18,7 @@ const style = {
     lineHeight: "150%",
     letterSpacing: "-0.022em",
     color: "#171B1D",
+    marginTop:'5%'
   },
   sub_text: {
     fontFamily: "Noto Sans",
@@ -57,7 +47,20 @@ const style = {
     lineHeight: "150%",
     letterSpacing: "-0.019em",
     color: "#1E1E1E",
+    marginTop: "10px",
+    maxWidth: "300px",
+    textAlign:"left" as const
+  },
+  about_text: {
+    fontFamily: "Inter",
+    fontStyle: "normal",
+    fontWeight: "500",
+    fontSize: "20px",
+    lineHeight: "150%",
+    letterSpacing: "-0.019em",
+    color: "#1E1E1E",
     marginTop: "30px",
+    maxWidth: "50%",
   },
   item_block: {
     border: "2px solid #f9be00",
@@ -94,10 +97,10 @@ export const HomePage = () => {
     <div>
       <div className="flex justify-center">
         <div style={style.top_text}>
-          AIキメラと友達になって、
-          <br /> 会話レベルをUpしよう! <br />
+          AIキメラと話して、
+          <br /> 会話力を育てよう！ <br />
           <br />
-          『キメ友』
+          友達感覚で楽しくコミュニケーション上達！
         </div>
       </div>
       <div className="text-center">
@@ -113,6 +116,11 @@ export const HomePage = () => {
           >
             <rect width="120" height="10" fill="#FABE00" />
           </svg>
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <div style={style.about_text}>
+          「キメ友」は、AIキャラクターと話すことで、楽しくコミュニケーションスキルを向上させる新しい学習アプリです。個性豊かな３人の「キメ友」キャラクターが、あなたの話し相手になります。会話を楽しみながら、実践的なフィードバックを受けて、着実に会話力を鍛えることができます。
         </div>
       </div>
       <div className="text-center">
@@ -131,7 +139,7 @@ export const HomePage = () => {
         </div>
       </div>
       <div className="flex justify-evenly">
-        <div className="text-center">
+        <div className="text-center" style={{ minWidth: "260px" }}>
           <div className="inline-block items-center mt-8">
             <svg
               width="113"
@@ -176,13 +184,13 @@ export const HomePage = () => {
             </svg>
           </div>
           <div>
-            <div style={style.middle_content_text}>キメ友の選択</div>
+            <div style={style.middle_content_text}>キメ友を選ぶ</div>
             <div style={style.middle_content_sub_text}>
-              キメラを性格などなど選択して...
+              ３人の「キメ友」から話したいキャラクターを選んでクリック！
             </div>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center" style={{ minWidth: "260px" }}>
           <div className="inline-block items-center mt-8">
             <svg
               width="113"
@@ -226,12 +234,12 @@ export const HomePage = () => {
               />
             </svg>
           </div>
-          <div style={style.middle_content_text}>キメ友の選択</div>
+          <div style={style.middle_content_text}>話しかける</div>
           <div style={style.middle_content_sub_text}>
-            キメラを性格などなど選択して...
+            マイクアイコンを押して、声で話しかけよう。AIが回答をくれるよ！
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center" style={{ minWidth: "260px" }}>
           <div className="inline-block items-center mt-8">
             <svg
               width="113"
@@ -274,9 +282,9 @@ export const HomePage = () => {
               />
             </svg>
           </div>
-          <div style={style.middle_content_text}>キメ友の選択</div>
+          <div style={style.middle_content_text}>フィードバックを受ける</div>
           <div style={style.middle_content_sub_text}>
-            キメラを性格などなど選択して...
+            会話後、フィードバックを見て自分の会話力をチェック！５つの観点から評価されるから、どこを伸ばせばいいかが分かるよ！
           </div>
         </div>
       </div>
@@ -296,27 +304,42 @@ export const HomePage = () => {
           </svg>
         </div>
       </div>
-      <div className="flex justify-center gap-5">
+      <div className="flex justify-center gap-5 mb-14">
         <div
           onClick={() => {
             router.push("/talk-room/1");
           }}
         >
-          <img src="/image/kimera-card/pengirou.jpg" alt="ペンギロー" />
+          <Image
+            src="/image/kimera-card/pengirou.jpg"
+            alt="ペンギロー"
+            width={382}
+            height={429}
+          />
         </div>
         <div
           onClick={() => {
             router.push("/talk-room/2");
           }}
         >
-          <img src="/image/kimera-card/roxy.jpg" alt="フォキシー" />
+          <Image
+            src="/image/kimera-card/roxy.jpg"
+            alt="フォキシー"
+            width={382}
+            height={429}
+          />
         </div>
         <div
           onClick={() => {
             router.push("/talk-room/3");
           }}
         >
-          <img src="/image/kimera-card/rakuti.jpg" alt="ラクチー" />
+          <Image
+            src="/image/kimera-card/rakuti.jpg"
+            alt="ラクチー"
+            width={382}
+            height={429}
+          />
         </div>
       </div>
     </div>
