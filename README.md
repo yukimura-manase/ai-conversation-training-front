@@ -2,6 +2,18 @@
 
 - AI Conversation Training の FrontEnd
 
+- [Qiita Hackathon 2024 (9/21~22)](https://qiita.com/official-campaigns/hackathon/2024)で開発した作品
+
+## 君も『キメ友』になろう！
+
+最初の『キメ友』を 3 体の中から選ぶ必要があります 🙏
+
+![キメ友](./img/lets-kimetomo.png)
+
+## 実際のサービス画面デモ
+
+[![キメラ友](./img/Youtube.png)](https://www.youtube.com/watch?v=UMw7Bpwo26Q)
+
 ## 環境構築方法(初期 setup)
 
 ### 0. 前提条件
