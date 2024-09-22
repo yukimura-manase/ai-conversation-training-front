@@ -5,6 +5,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
+  Text,
 } from "recharts";
 import {
   Card,
@@ -15,14 +16,15 @@ import {
 } from "@/components/shared/ui/card";
 
 const data = [
-  { subject: "笑顔度", A: 120, fullMark: 150 },
-  { subject: "コミュニケーションの明確さ", A: 98, fullMark: 150 },
-  { subject: "流れのスムーズさ", A: 86, fullMark: 150 },
-  { subject: "会話のトーンとマナー", A: 99, fullMark: 150 },
+  { subject: "笑顔度", A: 10, fullMark: 100, B: "sss" },
+  { subject: "コミュニケーションの明確さ", A: 98, fullMark: 100, B: "sss" },
+  { subject: "流れのスムーズさ", A: 86, fullMark: 100, B: "sss" },
+  { subject: "会話のトーンとマナー", A: 99, fullMark: 100, B: "sss" },
   {
-    subject: "相互理解・仲良くなれたScore(AIによる好感度)",
+    subject: "AIによる好感度",
     A: 85,
-    fullMark: 150,
+    fullMark: 100,
+    B: "sss",
   },
 ];
 const style = {
@@ -73,6 +75,24 @@ const style = {
     color: "#E65408",
   },
 };
+
+//後で正しく型定義し直します。
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomTick = (props: any) => {
+  const { payload, x, y, textAnchor } = props;
+  const score = data[payload.index].A;
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={-10} textAnchor={textAnchor} fill="#666">
+        {payload.value}
+      </text>
+      <text x={0} y={10} dy={0} textAnchor={textAnchor} fill="#666">
+        {`${score}%`}
+      </text>
+    </g>
+  );
+};
+
 export const FeedBackPage = () => {
   return (
     <div className="w-full max-w-4xl mx-auto p-4 space-y-8">
@@ -103,8 +123,15 @@ export const FeedBackPage = () => {
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
                 <PolarGrid />
-                <PolarAngleAxis dataKey="subject" style={style.graph_text} />
-                <PolarRadiusAxis angle={30} domain={[0, 150]} />
+                <Text x={100} y={100}>
+                  aaaa
+                </Text>
+                <PolarAngleAxis
+                  dataKey="subject"
+                  style={style.graph_text}
+                  tick={<CustomTick />}
+                />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} />
                 <Radar
                   name="Ratings"
                   dataKey="A"
