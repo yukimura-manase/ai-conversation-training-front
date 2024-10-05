@@ -12,7 +12,7 @@ const chatModel = new ChatOpenAI({
 
 // 3. outputParser を使って Responseから、回答のみを取り出すパターン
 export async function ChatChainLLM(userQuery: string, aiCustomPrompt: string) {
-  // Custom Prompt
+  // Custom Prompt を設定
   const prompt = ChatPromptTemplate.fromMessages([
     // GPTのペルソナ設定
     ["system", aiCustomPrompt],
@@ -20,10 +20,12 @@ export async function ChatChainLLM(userQuery: string, aiCustomPrompt: string) {
     ["user", "{input}"],
   ]);
 
+  // 文字の入出力を扱うためのパーサー
   const outputParser = new StringOutputParser();
 
   const llmChain = prompt.pipe(chatModel).pipe(outputParser);
 
+  // ユーザーの入力をAIに渡して、回答を取得する
   const resText = await llmChain.invoke({
     input: userQuery,
   });

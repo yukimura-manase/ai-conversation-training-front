@@ -20,7 +20,7 @@ export async function generateAudioQuery(text: string) {
 }
 
 /**
- * 音声合成
+ * 音声合成 API を呼び出して、audioQueryを音声に変換する
  */
 export async function synthesizeSpeech(text: string): Promise<Blob> {
   const { audioQuery } = await generateAudioQuery(text);
